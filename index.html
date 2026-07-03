@@ -1,907 +1,965 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Обратная связь - Ресторан TERRUAR</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Georgia', serif;
-      background: #f5efe8;
-      padding: 30px 20px;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .container {
-      max-width: 720px;
-      width: 100%;
-      margin: 0 auto;
-      background: #fcf9f6;
-      padding: 40px 35px;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(80, 40, 30, 0.12);
-      border: 1px solid #e8ddd0;
-    }
-
-    h1 {
-      color: #6b2e2a;
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      margin-bottom: 4px;
-    }
-
-    h2 {
-      color: #8a7a6e;
-      font-size: 17px;
-      font-weight: 400;
-      margin-bottom: 8px;
-    }
-
-    .subhead {
-      color: #9a8a7e;
-      font-size: 15px;
-      margin-bottom: 28px;
-      padding-bottom: 18px;
-      border-bottom: 2px solid #e8ddd0;
-      font-style: italic;
-    }
-
-    label {
-      display: block;
-      font-weight: 600;
-      color: #6b5a4e;
-      font-size: 14px;
-      margin-top: 16px;
-      margin-bottom: 5px;
-      letter-spacing: 0.3px;
-    }
-
-    select,
-    textarea {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1.5px solid #d6c9bc;
-      border-radius: 10px;
-      font-size: 15px;
-      background: #fcf9f6;
-      color: #4a3f38;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    select:focus,
-    textarea:focus {
-      outline: none;
-      border-color: #8b3f3a;
-      box-shadow: 0 0 0 3px rgba(107, 46, 42, 0.12);
-    }
-
-    textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
-
-    .note {
-      display: block;
-      font-size: 12px;
-      color: #b0a094;
-      margin-top: 5px;
-      font-style: italic;
-    }
-
-    #formWrapper {
-      display: block;
-    }
-
-    #formWrapper.hidden {
-      display: none;
-    }
-
-    #block {
-      margin-top: 20px;
-      border: 1.5px solid #e8ddd0;
-      padding: 25px 22px;
-      border-radius: 14px;
-      background: #f8f2ec;
-    }
-
-    .section-title {
-      color: #6b2e2a;
-      font-weight: 600;
-      font-size: 15px;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #dccfc2;
-      letter-spacing: 0.5px;
-    }
-
-    .toppings-wrapper {
-      margin-top: 5px;
-    }
-
-    .topping-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .topping-row select {
-      flex: 1;
-      padding: 10px 12px;
-      border: 1.5px solid #d6c9bc;
-      border-radius: 8px;
-      font-size: 14px;
-      background: #fcf9f6;
-    }
-
-    .topping-row select:focus {
-      outline: none;
-      border-color: #8b3f3a;
-      box-shadow: 0 0 0 3px rgba(107, 46, 42, 0.12);
-    }
-
-    .remove-topping {
-      background: #b5a69a;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      font-size: 16px;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: background 0.3s;
-    }
-
-    .remove-topping:hover {
-      background: #8b3f3a;
-    }
-
-    .add-topping-btn {
-      background: #b5a69a;
-      color: #fcf9f6;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 18px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 600;
-      transition: background 0.3s;
-      margin-top: 4px;
-      font-family: 'Georgia', serif;
-    }
-
-    .add-topping-btn:hover {
-      background: #8a7a6e;
-    }
-
-    .rating-section {
-      margin-top: 18px;
-      padding-top: 15px;
-      border-top: 2px solid #e8ddd0;
-    }
-
-    .rating-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .rating-row .rating-label {
-      font-weight: 600;
-      color: #6b5a4e;
-      font-size: 14px;
-      min-width: 80px;
-    }
-
-    .rating-btn-toggle {
-      background: #8a7a6e;
-      color: #fcf9f6;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 18px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 600;
-      transition: all 0.3s;
-      font-family: 'Georgia', serif;
-    }
-
-    .rating-btn-toggle:hover {
-      background: #6b5a4e;
-    }
-
-    .rating-buttons-wrapper {
-      display: none;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-left: 10px;
-    }
-
-    .rating-buttons-wrapper.show {
-      display: flex;
-    }
-
-    .rating-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 2px solid #d6c9bc;
-      background: #fcf9f6;
-      color: #6b5a4e;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.25s;
-      font-family: 'Georgia', serif;
-    }
-
-    .rating-btn:hover {
-      border-color: #8b3f3a;
-      background: #f5efe8;
-    }
-
-    .rating-btn.active {
-      border-color: #6b2e2a;
-      background: #6b2e2a;
-      color: #fcf9f6;
-      box-shadow: 0 2px 10px rgba(107, 46, 42, 0.25);
-    }
-
-    .rating-status {
-      font-size: 12px;
-      color: #b0a094;
-      margin-left: 6px;
-    }
-
-    .rating-status.done {
-      color: #27ae60;
-      font-weight: 600;
-    }
-
-    #send {
-      background: #6b2e2a;
-      color: #f5efe8;
-      margin-top: 18px;
-      width: 100%;
-      padding: 13px 35px;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      transition: all 0.3s;
-      font-family: 'Georgia', serif;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-    }
-
-    #send:hover {
-      background: #52221f;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 15px rgba(107, 46, 42, 0.25);
-    }
-
-    .btn-reset {
-      background: #b5a69a;
-      color: #fcf9f6;
-      padding: 13px 35px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 600;
-      transition: all 0.3s;
-      font-family: 'Georgia', serif;
-      letter-spacing: 0.5px;
-    }
-
-    .btn-reset:hover {
-      background: #9e8e82;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 15px rgba(150, 130, 115, 0.25);
-    }
-
-    #success {
-      display: none;
-      margin-top: 20px;
-      border: 2px solid #6b2e2a;
-      padding: 35px 30px;
-      border-radius: 14px;
-      text-align: center;
-      background: #faf5f0;
-    }
-
-    #success h2 {
-      color: #6b2e2a;
-      font-size: 26px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    #success p {
-      color: #6b5a4e;
-      font-size: 17px;
-      margin-bottom: 20px;
-    }
-
-    .contact-block {
-      background: #f5efe8;
-      padding: 22px 25px;
-      border-radius: 12px;
-      margin: 20px 0;
-      text-align: left;
-      border: 1px solid #e8ddd0;
-    }
-
-    .contact-item {
-      margin: 8px 0;
-      color: #4a3f38;
-      font-size: 15px;
-    }
-
-    .contact-item span {
-      font-weight: 600;
-      display: inline-block;
-      width: 80px;
-      color: #6b2e2a;
-    }
-
-    .contact-item a {
-      color: #6b2e2a;
-      text-decoration: none;
-      border-bottom: 1px dotted #b5a69a;
-    }
-
-    .contact-item a:hover {
-      border-bottom: 2px solid #6b2e2a;
-    }
-
-    .footer-note {
-      text-align: center;
-      color: #b0a094;
-      font-size: 13px;
-      margin-top: 18px;
-      font-style: italic;
-    }
-
-    @media (max-width: 500px) {
-      .container {
-        padding: 25px 18px;
-      }
-      h1 {
-        font-size: 24px;
-      }
-      #block {
-        padding: 18px 15px;
-      }
-      .contact-item span {
-        width: 60px;
-      }
-      .topping-row {
-        flex-wrap: wrap;
-      }
-      .remove-topping {
-        width: 28px;
-        height: 28px;
-        font-size: 14px;
-      }
-      .rating-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 12px;
-      }
-      .rating-row {
-        flex-wrap: wrap;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обратная связь - Ресторан TERRUAR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: #f5efe8;
+            padding: 30px 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 720px;
+            width: 100%;
+            margin: 0 auto;
+            background: #fcf9f6;
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(80, 40, 30, 0.12);
+            border: 1px solid #e8ddd0;
+        }
+        h1 {
+            color: #6b2e2a;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+        h2 {
+            color: #8a7a6e;
+            font-size: 17px;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+        .subhead {
+            color: #9a8a7e;
+            font-size: 15px;
+            margin-bottom: 28px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid #e8ddd0;
+            font-style: italic;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            color: #6b5a4e;
+            font-size: 14px;
+            margin-top: 16px;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #d6c9bc;
+            border-radius: 10px;
+            font-size: 15px;
+            background: #fcf9f6;
+            color: #4a3f38;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #8b3f3a;
+            box-shadow: 0 0 0 3px rgba(107, 46, 42, 0.12);
+        }
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .note {
+            display: block;
+            font-size: 12px;
+            color: #b0a094;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        #formWrapper {
+            display: block;
+        }
+        #formWrapper.hidden {
+            display: none;
+        }
+        #block {
+            margin-top: 20px;
+            border: 1.5px solid #e8ddd0;
+            padding: 25px 22px;
+            border-radius: 14px;
+            background: #f8f2ec;
+        }
+        .section-title {
+            color: #6b2e2a;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #dccfc2;
+            letter-spacing: 0.5px;
+        }
+        .toppings-wrapper {
+            margin-top: 5px;
+        }
+        .topping-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .topping-row select {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1.5px solid #d6c9bc;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #fcf9f6;
+        }
+        .topping-row select:focus {
+            outline: none;
+            border-color: #8b3f3a;
+            box-shadow: 0 0 0 3px rgba(107, 46, 42, 0.12);
+        }
+        .remove-topping {
+            background: #b5a69a;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background 0.3s;
+        }
+        .remove-topping:hover {
+            background: #8b3f3a;
+        }
+        .add-topping-btn {
+            background: #b5a69a;
+            color: #fcf9f6;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 4px;
+            font-family: 'Georgia', serif;
+        }
+        .add-topping-btn:hover {
+            background: #8a7a6e;
+        }
+        .rating-section {
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 2px solid #e8ddd0;
+        }
+        .rating-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .rating-row .rating-label {
+            font-weight: 600;
+            color: #6b5a4e;
+            font-size: 14px;
+            min-width: 80px;
+        }
+        .rating-btn-toggle {
+            background: #8a7a6e;
+            color: #fcf9f6;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
+        }
+        .rating-btn-toggle:hover {
+            background: #6b5a4e;
+        }
+        .rating-buttons-wrapper {
+            display: none;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-left: 10px;
+        }
+        .rating-buttons-wrapper.show {
+            display: flex;
+        }
+        .rating-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #d6c9bc;
+            background: #fcf9f6;
+            color: #6b5a4e;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: 'Georgia', serif;
+        }
+        .rating-btn:hover {
+            border-color: #8b3f3a;
+            background: #f5efe8;
+        }
+        .rating-btn.active {
+            border-color: #6b2e2a;
+            background: #6b2e2a;
+            color: #fcf9f6;
+            box-shadow: 0 2px 10px rgba(107, 46, 42, 0.25);
+        }
+        .rating-status {
+            font-size: 12px;
+            color: #b0a094;
+            margin-left: 6px;
+        }
+        .rating-status.done {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        #send {
+            background: #6b2e2a;
+            color: #f5efe8;
+            margin-top: 18px;
+            width: 100%;
+            padding: 13px 35px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+        #send:hover {
+            background: #52221f;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(107, 46, 42, 0.25);
+        }
+        .btn-reset {
+            background: #b5a69a;
+            color: #fcf9f6;
+            padding: 13px 35px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
+            letter-spacing: 0.5px;
+        }
+        .btn-reset:hover {
+            background: #9e8e82;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(150, 130, 115, 0.25);
+        }
+        #success {
+            display: none;
+            margin-top: 20px;
+            border: 2px solid #6b2e2a;
+            padding: 35px 30px;
+            border-radius: 14px;
+            text-align: center;
+            background: #faf5f0;
+        }
+        #success h2 {
+            color: #6b2e2a;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        #success p {
+            color: #6b5a4e;
+            font-size: 17px;
+            margin-bottom: 20px;
+        }
+        .contact-block {
+            background: #f5efe8;
+            padding: 22px 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: left;
+            border: 1px solid #e8ddd0;
+        }
+        .contact-item {
+            margin: 8px 0;
+            color: #4a3f38;
+            font-size: 15px;
+        }
+        .contact-item span {
+            font-weight: 600;
+            display: inline-block;
+            width: 80px;
+            color: #6b2e2a;
+        }
+        .contact-item a {
+            color: #6b2e2a;
+            text-decoration: none;
+            border-bottom: 1px dotted #b5a69a;
+        }
+        .contact-item a:hover {
+            border-bottom: 2px solid #6b2e2a;
+        }
+        .footer-note {
+            text-align: center;
+            color: #b0a094;
+            font-size: 13px;
+            margin-top: 18px;
+            font-style: italic;
+        }
+        #loading {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            padding: 12px;
+            background: #f5efe8;
+            border-radius: 10px;
+            color: #6b5a4e;
+            font-size: 15px;
+        }
+        #loading.show {
+            display: block;
+        }
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #e8ddd0;
+            border-top: 3px solid #6b2e2a;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @media (max-width: 500px) {
+            .container {
+                padding: 25px 18px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            #block {
+                padding: 18px 15px;
+            }
+            .contact-item span {
+                width: 60px;
+            }
+            .topping-row {
+                flex-wrap: wrap;
+            }
+            .remove-topping {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+            .rating-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+            .rating-row {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
+    <div class="container">
 
-  <h1>РЕСТОРАН TERRUAR</h1>
-  <h2>Форма обратной связи для улучшения качества и сервиса</h2>
-  <p class="subhead">Здесь вы можете выбрать блюдо, оценить его и помочь стать нам лучше</p>
+        <h1>РЕСТОРАН TERRUAR</h1>
+        <h2>Форма обратной связи для улучшения качества и сервиса</h2>
+        <p class="subhead">Здесь вы можете выбрать блюдо, оценить его и помочь стать нам лучше</p>
 
-  <div id="formWrapper">
+        <div id="formWrapper">
 
-    <label>Раздел</label>
-    <select id="category">
-      <option value="">-- Выберите раздел --</option>
-      <option value="завтрак">Завтрак</option>
-      <option value="закуски">Закуски</option>
-      <option value="салаты">Салаты</option>
-      <option value="горячие-закуски">Горячие закуски</option>
-      <option value="супы">Супы</option>
-      <option value="основные-блюда">Основные блюда</option>
-      <option value="пасты">Пасты</option>
-      <option value="десерты">Десерты</option>
-      <option value="кофе">Кофе</option>
-      <option value="лимонады">Лимонады</option>
-      <option value="коктейли">Коктейли</option>
-    </select>
-
-    <div id="block" style="display:none;">
-      <p class="section-title">Раздел выбран</p>
-
-      <label>Блюдо</label>
-      <select id="dish">
-        <option value="">-- Выберите блюдо --</option>
-      </select>
-
-      <div id="toppingsSection" style="display:block;">
-        <label>Топпинги</label>
-        <div id="toppingsContainer" class="toppings-wrapper">
-          <div class="topping-row">
-            <select class="topping-select">
-              <option value="Не брал(а)">Не брал(а)</option>
+            <label>Раздел</label>
+            <select id="category">
+                <option value="">-- Выберите раздел --</option>
+                <option value="завтрак">Завтрак</option>
+                <option value="закуски">Закуски</option>
+                <option value="салаты">Салаты</option>
+                <option value="горячие-закуски">Горячие закуски</option>
+                <option value="супы">Супы</option>
+                <option value="основные-блюда">Основные блюда</option>
+                <option value="пасты">Пасты</option>
+                <option value="десерты">Десерты</option>
+                <option value="кофе">Кофе</option>
+                <option value="лимонады">Лимонады</option>
+                <option value="коктейли">Коктейли</option>
             </select>
-            <button class="remove-topping" type="button" style="display:none;">✕</button>
-          </div>
+
+            <div id="block" style="display:none;">
+                <p class="section-title">Раздел выбран</p>
+
+                <label>Блюдо</label>
+                <select id="dish">
+                    <option value="">-- Выберите блюдо --</option>
+                </select>
+
+                <div id="toppingsSection">
+                    <label>Топпинги</label>
+                    <div id="toppingsContainer" class="toppings-wrapper">
+                        <div class="topping-row">
+                            <select class="topping-select">
+                                <option value="Не брал(а)">Не брал(а)</option>
+                            </select>
+                            <button class="remove-topping" type="button" style="display:none;">X</button>
+                        </div>
+                    </div>
+                    <button class="add-topping-btn" type="button" id="addToppingBtn">+ Добавить топпинг</button>
+                    <span class="note">Выберите топпинги (если применимо)</span>
+                </div>
+
+                <div class="rating-section" id="ratingSection" style="display:none;">
+
+                    <div class="rating-row">
+                        <span class="rating-label">Качество</span>
+                        <button class="rating-btn-toggle" data-target="quality">Поставить оценку качества</button>
+                        <span class="rating-status" id="statusQuality">не выбрана</span>
+                        <div class="rating-buttons-wrapper" data-target="quality">
+                            <button class="rating-btn" data-value="1">1</button>
+                            <button class="rating-btn" data-value="2">2</button>
+                            <button class="rating-btn" data-value="3">3</button>
+                            <button class="rating-btn" data-value="4">4</button>
+                            <button class="rating-btn" data-value="5">5</button>
+                        </div>
+                    </div>
+
+                    <div class="rating-row">
+                        <span class="rating-label">Подача</span>
+                        <button class="rating-btn-toggle" data-target="presentation">Поставить оценку подачи</button>
+                        <span class="rating-status" id="statusPresentation">не выбрана</span>
+                        <div class="rating-buttons-wrapper" data-target="presentation">
+                            <button class="rating-btn" data-value="1">1</button>
+                            <button class="rating-btn" data-value="2">2</button>
+                            <button class="rating-btn" data-value="3">3</button>
+                            <button class="rating-btn" data-value="4">4</button>
+                            <button class="rating-btn" data-value="5">5</button>
+                        </div>
+                    </div>
+
+                    <div class="rating-row">
+                        <span class="rating-label">Вкус</span>
+                        <button class="rating-btn-toggle" data-target="taste">Поставить оценку вкуса</button>
+                        <span class="rating-status" id="statusTaste">не выбрана</span>
+                        <div class="rating-buttons-wrapper" data-target="taste">
+                            <button class="rating-btn" data-value="1">1</button>
+                            <button class="rating-btn" data-value="2">2</button>
+                            <button class="rating-btn" data-value="3">3</button>
+                            <button class="rating-btn" data-value="4">4</button>
+                            <button class="rating-btn" data-value="5">5</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <label>Комментарий (по желанию)</label>
+                <textarea id="comment" placeholder="Расскажите о ваших впечатлениях..."></textarea>
+                <span class="note">Необязательное поле</span>
+
+                <div id="loading">
+                    <span class="loader"></span> Отправка...
+                </div>
+
+                <button id="send">Отправить отзыв</button>
+            </div>
+
         </div>
-        <button class="add-topping-btn" type="button" id="addToppingBtn">+ Добавить топпинг</button>
-        <span class="note">Выберите топпинги (если применимо)</span>
-      </div>
 
-      <!-- ОЦЕНКИ -->
-      <div class="rating-section" id="ratingSection" style="display:none;">
-
-        <div class="rating-row">
-          <span class="rating-label">Качество</span>
-          <button class="rating-btn-toggle" data-target="quality">Поставить оценку качества</button>
-          <span class="rating-status" id="statusQuality">не выбрана</span>
-          <div class="rating-buttons-wrapper" data-target="quality">
-            <button class="rating-btn" data-value="1">1</button>
-            <button class="rating-btn" data-value="2">2</button>
-            <button class="rating-btn" data-value="3">3</button>
-            <button class="rating-btn" data-value="4">4</button>
-            <button class="rating-btn" data-value="5">5</button>
-          </div>
+        <div id="success">
+            <h2>Мы стараемся быть лучше!</h2>
+            <p>Спасибо вам за обратную связь. До скорых встреч!</p>
+            <div class="contact-block">
+                <div class="contact-item"><span>Телефон</span> <a href="tel:+74991122289">+7 (499) 112-22-89</a></div>
+                <div class="contact-item"><span>Email</span> <a href="mailto:terruar.msk@gmail.com">terruar.msk@gmail.com</a></div>
+                <div class="contact-item"><span>Адрес</span> Тульская область, Ясногорский район, с/п Иваньковское</div>
+                <div class="contact-item"><span>Часы</span> 09:00 – 22:00</div>
+                <div class="contact-item"><span>Сайт</span> <a href="https://vk.com/terruarhome" target="_blank">vk.com/terruarhome</a></div>
+            </div>
+            <button class="btn-reset" id="resetBtn">Оставить ещё отзыв</button>
         </div>
 
-        <div class="rating-row">
-          <span class="rating-label">Подача</span>
-          <button class="rating-btn-toggle" data-target="presentation">Поставить оценку подачи</button>
-          <span class="rating-status" id="statusPresentation">не выбрана</span>
-          <div class="rating-buttons-wrapper" data-target="presentation">
-            <button class="rating-btn" data-value="1">1</button>
-            <button class="rating-btn" data-value="2">2</button>
-            <button class="rating-btn" data-value="3">3</button>
-            <button class="rating-btn" data-value="4">4</button>
-            <button class="rating-btn" data-value="5">5</button>
-          </div>
-        </div>
-
-        <div class="rating-row">
-          <span class="rating-label">Вкус</span>
-          <button class="rating-btn-toggle" data-target="taste">Поставить оценку вкуса</button>
-          <span class="rating-status" id="statusTaste">не выбрана</span>
-          <div class="rating-buttons-wrapper" data-target="taste">
-            <button class="rating-btn" data-value="1">1</button>
-            <button class="rating-btn" data-value="2">2</button>
-            <button class="rating-btn" data-value="3">3</button>
-            <button class="rating-btn" data-value="4">4</button>
-            <button class="rating-btn" data-value="5">5</button>
-          </div>
-        </div>
-
-      </div>
-
-      <label>Комментарий (по желанию)</label>
-      <textarea id="comment" placeholder="Расскажите о ваших впечатлениях..."></textarea>
-      <span class="note">Необязательное поле</span>
-
-      <button id="send">Отправить отзыв</button>
     </div>
 
-  </div>
+    <script>
+        // ============================================================
+        // ДАННЫЕ МЕНЮ
+        // ============================================================
+        var data = {
+            'завтрак': {
+                dishes: ['Каша геркулесовая', 'Блинчики', 'Сырники', 'Омлет', 'Скрембл', 'Картофельная вафля'],
+                toppings: ['Не брал(а)', 'Варенье', 'Мед', 'Сгущенка'],
+                special: {
+                    'Омлет': ['Не брал(а)', 'Помидоры', 'Ветчина'],
+                    'Скрембл': ['Не брал(а)', 'Помидоры', 'Ветчина'],
+                    'Картофельная вафля': ['Не брал(а)', 'Помидоры и перец', 'Авокадо и ветчина', 'Сыр и лосось', 'Микс салата']
+                }
+            },
+            'закуски': {
+                dishes: ['Фоккача с мортаделлой', 'Ассорти сыров', 'Антипасти с хамоном', 'Чиабатта с паштетами'],
+                toppings: ['Не брал(а)'],
+                special: {}
+            },
+            'салаты': {
+                dishes: ['Теплый салат с баклажанами', 'Зеленый салат с лососем и авокадо', 'Цезарь с курицей', 'Цезарь с креветкой',
+                    'Салат с дымной говядиной'
+                ],
+                toppings: ['Не брал(а)'],
+                special: {}
+            },
+            'горячие-закуски': {
+                dishes: ['Батат фри с трюфелем', 'Запеченный камамбер с брусничным соусом и чиабаттой',
+                    'Фритто мисто с огуречным соусом', 'Креветка в кляре с соусом гуакамоле', 'Брускетта с ростбифом',
+                    'Брускетта с креветкой'
+                ],
+                toppings: ['Не брал(а)'],
+                special: {}
+            },
+            'супы': {
+                dishes: ['Суп куриный с лапшой', 'Борщ с хлебом и смальцем', 'Похмельная солянка', 'Финская уха'],
+                toppings: ['Не брал(а)'],
+                special: {}
+            },
+            'основные-блюда': {
+                dishes: ['Чак-ролл стейк с картофелем по деревенски и соусом',
+                    'Горячая тальятта из курицы микс салатом и розовыми томатами',
+                    'Стейк татаки из тунца с броколли и соусом унаги', 'Драники картофельные с красной рыбой',
+                    'Дородо в прованских травах с соусом дзадзики'
+                ],
+                toppings: ['Не брал(а)'],
+                special: {}
+            },
+            'пасты': {
+                dishes: ['Карбонара', 'Болоньезе', 'Тальятелли с морепродуктами', 'Качо э пепе'],
+                toppings: ['Не брал(а)'],
+                special: {}
+            },
+            'десерты': {
+                dishes: ['Торт лимончелло', 'Клубничный чизкейк', 'Сорбет'],
+                toppings: ['Не брал(а)'],
+                special: {}
+            },
+            'кофе': {
+                dishes: ['Капучино', 'Латте', 'Эспрессо', 'Американо'],
+                toppings: ['Не брал(а)'],
+                special: {}
+            },
+            'лимонады': {
+                dishes: ['Классический лимонад с мятой', 'Персик амаретто', 'Мятное яблоко', 'Ежевика-малина'],
+                toppings: ['Не брал(а)'],
+                special: {}
+            },
+            'коктейли': {
+                dishes: ['Джин тоник', 'Аппероль', 'Негрони', 'Виски-кола', 'Беллини', 'Мохито', 'Фокси', 'Кловер-клаб'],
+                toppings: ['Не брал(а)'],
+                special: {}
+            }
+        };
 
-  <!-- ЭКРАН УСПЕХА -->
-  <div id="success">
-    <h2>Мы стараемся быть лучше!</h2>
-    <p>Спасибо вам за обратную связь. До скорых встреч!</p>
-    <div class="contact-block">
-      <div class="contact-item"><span>Телефон</span> <a href="tel:+74991122289">+7 (499) 112-22-89</a></div>
-      <div class="contact-item"><span>Email</span> <a href="mailto:terruar.msk@gmail.com">terruar.msk@gmail.com</a></div>
-      <div class="contact-item"><span>Адрес</span> Тульская область, Ясногорский район, с/п Иваньковское</div>
-      <div class="contact-item"><span>Часы</span> 09:00 – 22:00</div>
-      <div class="contact-item"><span>Сайт</span> <a href="https://vk.com/terruarhome" target="_blank">vk.com/terruarhome</a></div>
-    </div>
-    <button class="btn-reset" id="resetBtn">Оставить ещё отзыв</button>
-  </div>
+        // ============================================================
+        // ЭЛЕМЕНТЫ
+        // ============================================================
+        var category = document.getElementById('category');
+        var block = document.getElementById('block');
+        var dish = document.getElementById('dish');
+        var toppingsContainer = document.getElementById('toppingsContainer');
+        var addToppingBtn = document.getElementById('addToppingBtn');
+        var ratingSection = document.getElementById('ratingSection');
+        var send = document.getElementById('send');
+        var success = document.getElementById('success');
+        var resetBtn = document.getElementById('resetBtn');
+        var formWrapper = document.getElementById('formWrapper');
+        var loading = document.getElementById('loading');
 
-</div>
+        var ratings = {
+            quality: false,
+            presentation: false,
+            taste: false
+        };
 
-<script>
-  // ============================================================
-  // ДАННЫЕ МЕНЮ
-  // ============================================================
-  var data = {
-    'завтрак': {
-      dishes: ['Каша геркулесовая', 'Блинчики', 'Сырники', 'Омлет', 'Скрембл', 'Картофельная вафля'],
-      toppings: ['Не брал(а)', 'Варенье', 'Мед', 'Сгущенка'],
-      special: {
-        'Омлет': ['Не брал(а)', 'Помидоры', 'Ветчина'],
-        'Скрембл': ['Не брал(а)', 'Помидоры', 'Ветчина'],
-        'Картофельная вафля': ['Не брал(а)', 'Помидоры и перец', 'Авокадо и ветчина', 'Сыр и лосось', 'Микс салата']
-      }
-    },
-    'закуски': {
-      dishes: ['Фоккача с мортаделлой', 'Ассорти сыров', 'Антипасти с хамоном', 'Чиабатта с паштетами'],
-      toppings: ['Не брал(а)'],
-      special: {}
-    },
-    'салаты': {
-      dishes: ['Теплый салат с баклажанами', 'Зеленый салат с лососем и авокадо', 'Цезарь с курицей', 'Цезарь с креветкой', 'Салат с дымной говядиной'],
-      toppings: ['Не брал(а)'],
-      special: {}
-    },
-    'горячие-закуски': {
-      dishes: ['Батат фри с трюфелем', 'Запеченный камамбер с брусничным соусом и чиабаттой', 'Фритто мисто с огуречным соусом', 'Креветка в кляре с соусом гуакамоле', 'Брускетта с ростбифом', 'Брускетта с креветкой'],
-      toppings: ['Не брал(а)'],
-      special: {}
-    },
-    'супы': {
-      dishes: ['Суп куриный с лапшой', 'Борщ с хлебом и смальцем', 'Похмельная солянка', 'Финская уха'],
-      toppings: ['Не брал(а)'],
-      special: {}
-    },
-    'основные-блюда': {
-      dishes: ['Чак-ролл стейк с картофелем по деревенски и соусом', 'Горячая тальятта из курицы микс салатом и розовыми томатами', 'Стейк татаки из тунца с броколли и соусом унаги', 'Драники картофельные с красной рыбой', 'Дородо в прованских травах с соусом дзадзики'],
-      toppings: ['Не брал(а)'],
-      special: {}
-    },
-    'пасты': {
-      dishes: ['Карбонара', 'Болоньезе', 'Тальятелли с морепродуктами', 'Качо э пепе'],
-      toppings: ['Не брал(а)'],
-      special: {}
-    },
-    'десерты': {
-      dishes: ['Торт лимончелло', 'Клубничный чизкейк', 'Сорбет'],
-      toppings: ['Не брал(а)'],
-      special: {}
-    },
-    'кофе': {
-      dishes: ['Капучино', 'Латте', 'Эспрессо', 'Американо'],
-      toppings: ['Не брал(а)'],
-      special: {}
-    },
-    'лимонады': {
-      dishes: ['Классический лимонад с мятой', 'Персик амаретто', 'Мятное яблоко', 'Ежевика-малина'],
-      toppings: ['Не брал(а)'],
-      special: {}
-    },
-    'коктейли': {
-      dishes: ['Джин тоник', 'Аппероль', 'Негрони', 'Виски-кола', 'Беллини', 'Мохито', 'Фокси', 'Кловер-клаб'],
-      toppings: ['Не брал(а)'],
-      special: {}
-    }
-  };
+        // ============================================================
+        // ТВОИ ДАННЫЕ ДЛЯ TELEGRAM
+        // ============================================================
+        var BOT_TOKEN = '8946433002:AAE76qwtnJt_1TjVz7s3gWGi_GM5M99g_vw';
+        var CHAT_ID = '1763852136';
 
-  // ============================================================
-  // ЭЛЕМЕНТЫ
-  // ============================================================
-  var formWrapper = document.getElementById('formWrapper');
-  var category = document.getElementById('category');
-  var block = document.getElementById('block');
-  var dish = document.getElementById('dish');
-  var toppingsContainer = document.getElementById('toppingsContainer');
-  var addToppingBtn = document.getElementById('addToppingBtn');
-  var ratingSection = document.getElementById('ratingSection');
-  var send = document.getElementById('send');
-  var success = document.getElementById('success');
-  var resetBtn = document.getElementById('resetBtn');
-  var toppingsSection = document.getElementById('toppingsSection');
+        // ============================================================
+        // ФУНКЦИИ
+        // ============================================================
 
-  var ratings = {
-    quality: false,
-    presentation: false,
-    taste: false
-  };
+        function setRatingStatus(target, done) {
+            var statusEl = document.getElementById('status' + target.charAt(0).toUpperCase() + target.slice(1));
+            if (statusEl) {
+                if (done) {
+                    statusEl.textContent = 'выбрана ✓';
+                    statusEl.className = 'rating-status done';
+                } else {
+                    statusEl.textContent = 'не выбрана';
+                    statusEl.className = 'rating-status';
+                }
+            }
+        }
 
-  function setRatingStatus(target, done) {
-    var statusEl = document.getElementById('status' + target.charAt(0).toUpperCase() + target.slice(1));
-    if (statusEl) {
-      if (done) {
-        statusEl.textContent = 'выбрана ✓';
-        statusEl.className = 'rating-status done';
-      } else {
-        statusEl.textContent = 'не выбрана';
-        statusEl.className = 'rating-status';
-      }
-    }
-  }
+        function getCurrentToppings() {
+            return data[category.value] ? data[category.value].toppings : ['Не брал(а)'];
+        }
 
-  // ============================================================
-  // ТОППИНГИ
-  // ============================================================
-  function getCurrentToppings() {
-    return data[category.value] ? data[category.value].toppings : ['Не брал(а)'];
-  }
+        function getSpecialToppings(dishVal) {
+            var cat = category.value;
+            if (cat && data[cat].special && data[cat].special[dishVal]) {
+                return data[cat].special[dishVal];
+            }
+            return null;
+        }
 
-  function getSpecialToppings(dishVal) {
-    var cat = category.value;
-    if (cat && data[cat].special && data[cat].special[dishVal]) {
-      return data[cat].special[dishVal];
-    }
-    return null;
-  }
+        function updateAllToppings() {
+            var selects = toppingsContainer.querySelectorAll('.topping-select');
+            var cat = category.value;
+            var dishVal = dish.value;
+            if (!cat) return;
 
-  function updateAllToppings() {
-    var selects = toppingsContainer.querySelectorAll('.topping-select');
-    var cat = category.value;
-    var dishVal = dish.value;
-    if (!cat) return;
+            var toppings = getCurrentToppings();
+            var special = getSpecialToppings(dishVal);
+            if (special) toppings = special;
 
-    var toppings = getCurrentToppings();
-    var special = getSpecialToppings(dishVal);
-    if (special) toppings = special;
+            for (var i = 0; i < selects.length; i++) {
+                var currentValue = selects[i].value;
+                selects[i].innerHTML = '';
+                for (var j = 0; j < toppings.length; j++) {
+                    var opt = document.createElement('option');
+                    opt.value = toppings[j];
+                    opt.textContent = toppings[j];
+                    selects[i].appendChild(opt);
+                }
+                var found = false;
+                for (var k = 0; k < toppings.length; k++) {
+                    if (toppings[k] === currentValue) {
+                        selects[i].value = currentValue;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) selects[i].value = toppings[0] || 'Не брал(а)';
+            }
+            updateRemoveButtons();
+        }
 
-    for (var i = 0; i < selects.length; i++) {
-      var currentValue = selects[i].value;
-      selects[i].innerHTML = '';
-      for (var j = 0; j < toppings.length; j++) {
-        var opt = document.createElement('option');
-        opt.value = toppings[j];
-        opt.textContent = toppings[j];
-        selects[i].appendChild(opt);
-      }
-      var found = false;
-      for (var k = 0; k < toppings.length; k++) {
-        if (toppings[k] === currentValue) { selects[i].value = currentValue; found = true; break; }
-      }
-      if (!found) selects[i].value = toppings[0] || 'Не брал(а)';
-    }
-    updateRemoveButtons();
-  }
+        function updateRemoveButtons() {
+            var rows = toppingsContainer.querySelectorAll('.topping-row');
+            var removeBtns = toppingsContainer.querySelectorAll('.remove-topping');
+            for (var i = 0; i < removeBtns.length; i++) {
+                removeBtns[i].style.display = rows.length > 1 ? 'inline-block' : 'none';
+            }
+        }
 
-  function updateRemoveButtons() {
-    var rows = toppingsContainer.querySelectorAll('.topping-row');
-    var removeBtns = toppingsContainer.querySelectorAll('.remove-topping');
-    for (var i = 0; i < removeBtns.length; i++) {
-      removeBtns[i].style.display = rows.length > 1 ? 'inline-block' : 'none';
-    }
-  }
+        function addToppingRow() {
+            var firstSelect = toppingsContainer.querySelector('.topping-select');
+            var newRow = document.createElement('div');
+            newRow.className = 'topping-row';
+            var select = document.createElement('select');
+            select.className = 'topping-select';
+            select.innerHTML = firstSelect ? firstSelect.innerHTML : '<option value="Не брал(а)">Не брал(а)</option>';
+            var removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-topping';
+            removeBtn.type = 'button';
+            removeBtn.textContent = 'X';
+            removeBtn.addEventListener('click', function() {
+                this.parentElement.remove();
+                updateRemoveButtons();
+            });
+            newRow.appendChild(select);
+            newRow.appendChild(removeBtn);
+            toppingsContainer.appendChild(newRow);
+            updateRemoveButtons();
+        }
 
-  function addToppingRow() {
-    var firstSelect = toppingsContainer.querySelector('.topping-select');
-    var newRow = document.createElement('div');
-    newRow.className = 'topping-row';
+        function updateDishes(cat) {
+            dish.innerHTML = '<option value="">-- Выберите блюдо --</option>';
+            if (cat && data[cat]) {
+                var dishes = data[cat].dishes;
+                for (var i = 0; i < dishes.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = dishes[i];
+                    opt.textContent = dishes[i];
+                    dish.appendChild(opt);
+                }
+            }
+        }
 
-    var select = document.createElement('select');
-    select.className = 'topping-select';
-    select.innerHTML = firstSelect ? firstSelect.innerHTML : '<option value="Не брал(а)">Не брал(а)</option>';
+        function toggleRatingSection() {
+            var dishVal = dish.value;
+            if (dishVal && dishVal !== '') {
+                ratingSection.style.display = 'block';
+            } else {
+                ratingSection.style.display = 'none';
+                document.querySelectorAll('.rating-buttons-wrapper').forEach(function(w) {
+                    w.classList.remove('show');
+                });
+                document.querySelectorAll('.rating-btn-toggle').forEach(function(b) {
+                    var text = b.textContent;
+                    if (text.indexOf('Скрыть') !== -1) {
+                        b.textContent = text.replace('Скрыть ', 'Поставить ');
+                    }
+                });
+                ratings = { quality: false, presentation: false, taste: false };
+                setRatingStatus('quality', false);
+                setRatingStatus('presentation', false);
+                setRatingStatus('taste', false);
+            }
+        }
 
-    var removeBtn = document.createElement('button');
-    removeBtn.className = 'remove-topping';
-    removeBtn.type = 'button';
-    removeBtn.textContent = '✕';
-    removeBtn.addEventListener('click', function() {
-      this.parentElement.remove();
-      updateRemoveButtons();
-    });
+        function validateForm() {
+            var errors = [];
+            var cat = category.value;
+            if (!cat) errors.push('выберите раздел');
+            var d = dish.value;
+            if (!d) errors.push('выберите блюдо');
+            if (!ratings.quality) errors.push('поставьте оценку качества');
+            if (!ratings.presentation) errors.push('поставьте оценку подачи');
+            if (!ratings.taste) errors.push('поставьте оценку вкуса');
 
-    newRow.appendChild(select);
-    newRow.appendChild(removeBtn);
-    toppingsContainer.appendChild(newRow);
-    updateRemoveButtons();
-  }
+            if (errors.length > 0) {
+                alert('Пожалуйста, заполните все обязательные поля:\n- ' + errors.join('\n- '));
+                return false;
+            }
+            return true;
+        }
 
-  function updateDishes(cat) {
-    dish.innerHTML = '<option value="">-- Выберите блюдо --</option>';
-    if (cat && data[cat]) {
-      var dishes = data[cat].dishes;
-      for (var i = 0; i < dishes.length; i++) {
-        var opt = document.createElement('option');
-        opt.value = dishes[i];
-        opt.textContent = dishes[i];
-        dish.appendChild(opt);
-      }
-    }
-  }
+        // ============================================================
+        // ОТПРАВКА В TELEGRAM
+        // ============================================================
+        send.onclick = function() {
+            if (!validateForm()) return;
 
-  // ============================================================
-  // ОЦЕНКИ
-  // ============================================================
-  document.querySelectorAll('.rating-btn-toggle').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var target = this.dataset.target;
-      var wrapper = document.querySelector('.rating-buttons-wrapper[data-target="' + target + '"]');
-      if (wrapper.classList.contains('show')) {
-        wrapper.classList.remove('show');
-        this.textContent = this.textContent.replace('Скрыть', 'Поставить');
-      } else {
-        wrapper.classList.add('show');
-        this.textContent = 'Скрыть ' + this.textContent.replace('Поставить ', '').toLowerCase();
-      }
-    });
-  });
+            var cat = document.getElementById('category').value;
+            var d = document.getElementById('dish').value;
 
-  document.querySelectorAll('.rating-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var parent = this.parentElement;
-      var target = parent.dataset.target;
-      parent.querySelectorAll('.rating-btn').forEach(function(b) { b.classList.remove('active'); });
-      this.classList.add('active');
+            var toppingSelects = document.querySelectorAll('.topping-select');
+            var toppings = [];
+            for (var i = 0; i < toppingSelects.length; i++) {
+                toppings.push(toppingSelects[i].value);
+            }
 
-      ratings[target] = true;
-      setRatingStatus(target, true);
-    });
-  });
+            var quality = document.querySelector('.rating-buttons-wrapper[data-target="quality"] .rating-btn.active');
+            var presentation = document.querySelector('.rating-buttons-wrapper[data-target="presentation"] .rating-btn.active');
+            var taste = document.querySelector('.rating-buttons-wrapper[data-target="taste"] .rating-btn.active');
 
-  function toggleRatingSection() {
-    var dishVal = dish.value;
-    if (dishVal && dishVal !== '') {
-      ratingSection.style.display = 'block';
-    } else {
-      ratingSection.style.display = 'none';
-      document.querySelectorAll('.rating-buttons-wrapper').forEach(function(w) { w.classList.remove('show'); });
-      document.querySelectorAll('.rating-btn-toggle').forEach(function(b) {
-        var text = b.textContent;
-        if (text.indexOf('Скрыть') !== -1) b.textContent = text.replace('Скрыть ', 'Поставить ');
-      });
-      ratings = { quality: false, presentation: false, taste: false };
-      setRatingStatus('quality', false);
-      setRatingStatus('presentation', false);
-      setRatingStatus('taste', false);
-    }
-  }
+            var qualityVal = quality ? quality.textContent : 'не выбрана';
+            var presentationVal = presentation ? presentation.textContent : 'не выбрана';
+            var tasteVal = taste ? taste.textContent : 'не выбрана';
+            var comment = document.getElementById('comment').value || 'не оставлен';
 
-  function toggleToppingsVisibility() {
-    var cat = category.value;
-    if (cat === 'салаты' || cat === 'закуски' || cat === 'горячие-закуски' || cat === 'супы' || cat === 'основные-блюда' || cat === 'пасты' || cat === 'десерты' || cat === 'кофе' || cat === 'лимонады' || cat === 'коктейли') {
-      toppingsSection.style.display = 'none';
-    } else {
-      toppingsSection.style.display = 'block';
-    }
-  }
+            var message = 'НОВЫЙ ОТЗЫВ О БЛЮДЕ\n';
+            message += '----------------------------------------\n\n';
+            message += 'Раздел: ' + cat + '\n';
+            message += 'Блюдо: ' + d + '\n';
+            message += 'Топпинги: ' + toppings.join(', ') + '\n\n';
+            message += 'ОЦЕНКИ:\n';
+            message += '  Качество: ' + qualityVal + '\n';
+            message += '  Подача: ' + presentationVal + '\n';
+            message += '  Вкус: ' + tasteVal + '\n\n';
+            message += 'Комментарий: ' + comment + '\n\n';
+            message += '----------------------------------------\n';
+            message += 'С уважением, команда TERRUAR';
 
-  // ============================================================
-  // ПРОВЕРКА ПЕРЕД ОТПРАВКОЙ
-  // ============================================================
-  function validateForm() {
-    var errors = [];
+            loading.classList.add('show');
+            send.disabled = true;
 
-    var cat = category.value;
-    if (!cat) {
-      errors.push('выберите раздел');
-    }
+            var url = 'https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage';
+            var data = {
+                chat_id: CHAT_ID,
+                text: message
+            };
 
-    var d = dish.value;
-    if (!d) {
-      errors.push('выберите блюдо');
-    }
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(result) {
+                    loading.classList.remove('show');
+                    send.disabled = false;
 
-    if (!ratings.quality) {
-      errors.push('поставьте оценку качества');
-    }
-    if (!ratings.presentation) {
-      errors.push('поставьте оценку подачи');
-    }
-    if (!ratings.taste) {
-      errors.push('поставьте оценку вкуса');
-    }
+                    if (result.ok) {
+                        formWrapper.classList.add('hidden');
+                        success.style.display = 'block';
+                    } else {
+                        alert('Ошибка отправки в Telegram: ' + (result.description || 'попробуйте позже'));
+                    }
+                })
+                .catch(function(error) {
+                    loading.classList.remove('show');
+                    send.disabled = false;
+                    alert('Ошибка соединения. Проверьте интернет.');
+                });
+        };
 
-    if (errors.length > 0) {
-      alert('Пожалуйста, заполните все обязательные поля:\n- ' + errors.join('\n- '));
-      return false;
-    }
+        // ============================================================
+        // ОСНОВНЫЕ СОБЫТИЯ
+        // ============================================================
 
-    return true;
-  }
+        category.onchange = function() {
+            var val = this.value;
+            if (val) {
+                block.style.display = 'block';
+                updateDishes(val);
+                toppingsContainer.innerHTML = '';
+                var firstRow = document.createElement('div');
+                firstRow.className = 'topping-row';
+                var select = document.createElement('select');
+                select.className = 'topping-select';
+                select.innerHTML = '<option value="Не брал(а)">Не брал(а)</option>';
+                var removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-topping';
+                removeBtn.type = 'button';
+                removeBtn.textContent = 'X';
+                removeBtn.style.display = 'none';
+                removeBtn.addEventListener('click', function() {
+                    this.parentElement.remove();
+                    updateRemoveButtons();
+                });
+                firstRow.appendChild(select);
+                firstRow.appendChild(removeBtn);
+                toppingsContainer.appendChild(firstRow);
+                updateAllToppings();
+                toggleRatingSection();
+            } else {
+                block.style.display = 'none';
+            }
+        };
 
-  // ============================================================
-  // СОБЫТИЯ
-  // ============================================================
-  category.onchange = function() {
-    var val = this.value;
-    if (val) {
-      block.style.display = 'block';
-      updateDishes(val);
-      toppingsContainer.innerHTML = '';
-      var firstRow = document.createElement('div');
-      firstRow.className = 'topping-row';
-      var select = document.createElement('select');
-      select.className = 'topping-select';
-      select.innerHTML = '<option value="Не брал(а)">Не брал(а)</option>';
-      var removeBtn = document.createElement('button');
-      removeBtn.className = 'remove-topping';
-      removeBtn.type = 'button';
-      removeBtn.textContent = '✕';
-      removeBtn.style.display = 'none';
-      removeBtn.addEventListener('click', function() {
-        this.parentElement.remove();
+        dish.onchange = function() {
+            if (category.value) {
+                updateAllToppings();
+                toggleRatingSection();
+            }
+        };
+
+        addToppingBtn.onclick = function() {
+            addToppingRow();
+            updateAllToppings();
+        };
+
+        resetBtn.onclick = function() {
+            success.style.display = 'none';
+            formWrapper.classList.remove('hidden');
+            category.value = '';
+            block.style.display = 'none';
+            dish.innerHTML = '<option value="">-- Выберите блюдо --</option>';
+            toppingsContainer.innerHTML = '';
+            var firstRow = document.createElement('div');
+            firstRow.className = 'topping-row';
+            var select = document.createElement('select');
+            select.className = 'topping-select';
+            select.innerHTML = '<option value="Не брал(а)">Не брал(а)</option>';
+            var removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-topping';
+            removeBtn.type = 'button';
+            removeBtn.textContent = 'X';
+            removeBtn.style.display = 'none';
+            removeBtn.addEventListener('click', function() {
+                this.parentElement.remove();
+                updateRemoveButtons();
+            });
+            firstRow.appendChild(select);
+            firstRow.appendChild(removeBtn);
+            toppingsContainer.appendChild(firstRow);
+
+            ratingSection.style.display = 'none';
+            document.querySelectorAll('.rating-buttons-wrapper').forEach(function(w) {
+                w.classList.remove('show');
+            });
+            document.querySelectorAll('.rating-btn-toggle').forEach(function(b) {
+                var text = b.textContent;
+                if (text.indexOf('Скрыть') !== -1) {
+                    b.textContent = text.replace('Скрыть ', 'Поставить ');
+                }
+            });
+            document.querySelectorAll('.rating-btn').forEach(function(b) {
+                b.classList.remove('active');
+            });
+
+            ratings = { quality: false, presentation: false, taste: false };
+            setRatingStatus('quality', false);
+            setRatingStatus('presentation', false);
+            setRatingStatus('taste', false);
+            document.getElementById('comment').value = '';
+            loading.classList.remove('show');
+            send.disabled = false;
+        };
+
+        // ============================================================
+        // ОЦЕНКИ - ОБРАБОТЧИКИ КНОПОК
+        // ============================================================
+
+        document.querySelectorAll('.rating-btn-toggle').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var target = this.dataset.target;
+                var wrapper = document.querySelector('.rating-buttons-wrapper[data-target="' + target + '"]');
+                if (wrapper.classList.contains('show')) {
+                    wrapper.classList.remove('show');
+                    this.textContent = this.textContent.replace('Скрыть', 'Поставить');
+                } else {
+                    wrapper.classList.add('show');
+                    this.textContent = 'Скрыть ' + this.textContent.replace('Поставить ', '').toLowerCase();
+                }
+            });
+        });
+
+        document.querySelectorAll('.rating-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var parent = this.parentElement;
+                var target = parent.dataset.target;
+                parent.querySelectorAll('.rating-btn').forEach(function(b) {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+
+                ratings[target] = true;
+                setRatingStatus(target, true);
+            });
+        });
+
+        // ============================================================
+        // ИНИЦИАЛИЗАЦИЯ
+        // ============================================================
+        category.value = '';
+        block.style.display = 'none';
+        success.style.display = 'none';
+        ratingSection.style.display = 'none';
         updateRemoveButtons();
-      });
-      firstRow.appendChild(select);
-      firstRow.appendChild(removeBtn);
-      toppingsContainer.appendChild(firstRow);
-      updateAllToppings();
-      toggleRatingSection();
-      toggleToppingsVisibility();
-    } else {
-      block.style.display = 'none';
-    }
-  };
-
-  dish.onchange = function() {
-    if (category.value) {
-      updateAllToppings();
-      toggleRatingSection();
-    }
-  };
-
-  addToppingBtn.onclick = function() {
-    addToppingRow();
-    updateAllToppings();
-  };
-
-  send.onclick = function() {
-    if (!validateForm()) return;
-    formWrapper.classList.add('hidden');
-    success.style.display = 'block';
-  };
-
-  resetBtn.onclick = function() {
-    success.style.display = 'none';
-    formWrapper.classList.remove('hidden');
-    category.value = '';
-    block.style.display = 'none';
-    dish.innerHTML = '<option value="">-- Выберите блюдо --</option>';
-    toppingsContainer.innerHTML = '';
-    var firstRow = document.createElement('div');
-    firstRow.className = 'topping-row';
-    var select = document.createElement('select');
-    select.className = 'topping-select';
-    select.innerHTML = '<option value="Не брал(а)">Не брал(а)</option>';
-    var removeBtn = document.createElement('button');
-    removeBtn.className = 'remove-topping';
-    removeBtn.type = 'button';
-    removeBtn.textContent = '✕';
-    removeBtn.style.display = 'none';
-    removeBtn.addEventListener('click', function() {
-      this.parentElement.remove();
-      updateRemoveButtons();
-    });
-    firstRow.appendChild(select);
-    firstRow.appendChild(removeBtn);
-    toppingsContainer.appendChild(firstRow);
-
-    ratingSection.style.display = 'none';
-    document.querySelectorAll('.rating-buttons-wrapper').forEach(function(w) { w.classList.remove('show'); });
-    document.querySelectorAll('.rating-btn-toggle').forEach(function(b) {
-      var text = b.textContent;
-      if (text.indexOf('Скрыть') !== -1) b.textContent = text.replace('Скрыть ', 'Поставить ');
-    });
-    document.querySelectorAll('.rating-btn').forEach(function(b) { b.classList.remove('active'); });
-
-    ratings = { quality: false, presentation: false, taste: false };
-    setRatingStatus('quality', false);
-    setRatingStatus('presentation', false);
-    setRatingStatus('taste', false);
-    document.getElementById('comment').value = '';
-    toppingsSection.style.display = 'block';
-  };
-
-  // ИНИЦИАЛИЗАЦИЯ
-  category.value = '';
-  block.style.display = 'none';
-  success.style.display = 'none';
-  ratingSection.style.display = 'none';
-  updateRemoveButtons();
-</script>
+    </script>
 
 </body>
 </html>
