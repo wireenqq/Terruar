@@ -381,7 +381,7 @@
         }
 
         // ============================================================
-        // ОТПРАВКА ЧЕРЕЗ FORMPREE С РЕЖИМОМ _AUTO
+        // ОТПРАВКА НА FORMPREE (ПРАВИЛЬНЫЙ URL)
         // ============================================================
         send.onclick = function() {
             if (!validateForm()) return;
@@ -412,8 +412,8 @@
             formData.append('Вкус', tasteVal);
             formData.append('Комментарий', comment);
 
-            // ✅ РЕЖИМ _AUTO - сам создаст поля в Formgrid
-            fetch('https://formgrid.dev/api/f/Y3luhRbKv407XeFg?_auto', {
+            // ✅ ПРАВИЛЬНЫЙ URL (без _auto)
+            fetch('https://formgrid.dev/api/f/Y3luhRbKv407XeFg', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -442,7 +442,6 @@
             });
         };
 
-        // ОСНОВНЫЕ СОБЫТИЯ
         category.onchange = function() {
             var val = this.value;
             if (val) {
